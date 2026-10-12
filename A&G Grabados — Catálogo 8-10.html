@@ -187,8 +187,10 @@ header{
 }
 .btn.light{background:#f1f1f2;color:#0b0b0c;border-color:#f1f1f2}
 .btn.dark{background:#0b0b0c;color:#f1f1f2;border-color:var(--silver2)}
+.btn.share{background:var(--wa);color:#082011;border-color:var(--wa)}
 .btn.light:hover{background:#0b0b0c;color:#f1f1f2;border-color:var(--silver)}
 .btn.dark:hover{background:#f1f1f2;color:#0b0b0c;border-color:#f1f1f2}
+.btn.share:hover{background:#b8f5cc;color:#082011;border-color:#b8f5cc}
 .btn.sm{min-height:38px;padding:0 10px;font-size:11px;letter-spacing:.12em}
 .info-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
 
@@ -768,6 +770,13 @@ function productMessage(item){
   return `Hola, quiero consultar por ${item.name} (código ${item.code}).`;
 }
 
+function productShareUrl(item){
+  const productUrl = new URL(window.location.href);
+  productUrl.hash = `product-${item.code.toLowerCase()}`;
+  const message = `Mirá este producto de A&G Grabados: ${item.name} (código ${item.code}). ${productUrl.href}`;
+  return "https://wa.me/?text=" + encodeURIComponent(message);
+}
+
 function setWhatsAppLinks(){
   const url = waUrl(generalMessage());
   ["heroWa","infoWa","floatWa"].forEach(id => {
@@ -819,7 +828,7 @@ function card(item){
   const image = imageBlock(item);
 
   return `
-    <article class="card">
+    <article class="card" id="product-${escapeHtml(item.code.toLowerCase())}">
       ${image}
       <div class="body">
         <div>
@@ -842,6 +851,9 @@ function card(item){
         <div class="card-actions">
           <a class="btn dark sm" href="${waUrl(productMessage(item))}" target="_blank" rel="noopener">
             Consultar
+          </a>
+          <a class="btn share sm" href="${productShareUrl(item)}" target="_blank" rel="noopener" aria-label="Compartir ${escapeHtml(item.name)} por WhatsApp">
+            Compartir
           </a>
         </div>
       </div>
