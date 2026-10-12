@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A&G Grabados — Catálogo</title>
+<style>
+:root{--bg:#e9eaec;--card:#fff;--ink:#141517;--mute:#5d646b;--line:#cdd1d5;--inv:#141517;--invink:#f2f3f4;--hero:#0d0d0e;--heroink:#e8eaed;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1011;--card:#191a1c;--ink:#eceef0;--mute:#9ba1a8;--line:#303236;--inv:#eceef0;--invink:#141517}}
+:root[data-theme="dark"]{--bg:#0f1011;--card:#191a1c;--ink:#eceef0;--mute:#9ba1a8;--line:#303236;--inv:#eceef0;--invink:#141517}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 "Avenir Next","Segoe UI",system-ui,sans-serif}
+.hero{background:var(--hero) center/cover;color:var(--heroink);text-align:center;padding:44px 18px 30px}
+.hero h1{margin:0;font:400 clamp(2.6rem,9vw,4.2rem)/1 "Snell Roundhand","Segoe Script","Brush Script MT",cursive;letter-spacing:.01em;background:linear-gradient(180deg,#f4f5f6,#9aa0a6 55%,#d9dcdf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:10px auto 18px;max-width:34ch;color:#b8bcc1}
+.hb{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:560px;margin:0 auto}
+.btn{border:1px solid var(--ink);background:transparent;color:var(--ink);padding:10px 16px;border-radius:8px;font:inherit;font-size:.92rem;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:inline-block}
+.btn.f{background:var(--inv);color:var(--invink);border-color:var(--inv)}
+.hero .btn{border-color:#e8eaed;color:#e8eaed}.hero .btn.f{background:#e8eaed;color:#0d0d0e}
+.btn:focus-visible,.chip:focus-visible,input:focus-visible{outline:3px solid #7f9cff;outline-offset:2px}
+#serv{max-width:760px;margin:0 auto;padding:18px;color:var(--mute);text-align:center}
+#serv strong{color:var(--ink)}
+.tools{position:sticky;top:env(safe-area-inset-top,0px);z-index:3;background:var(--bg);padding:12px 18px;max-width:1040px;margin:0 auto}
+input[type=search]{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:8px;font:inherit;font-size:.9rem;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--inv);color:var(--invink);border-color:var(--inv)}
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;padding:6px 18px 90px;max-width:1040px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.card.hl{outline:3px solid #7f9cff}
+.car{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;aspect-ratio:1/1;background:var(--bg)}
+.car>*{flex:none;width:100%;height:100%;scroll-snap-align:center}
+.car img{object-fit:cover}.cw{position:relative}.bd{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:.75rem;padding:2px 8px;border-radius:99px;pointer-events:none}
+.ph{display:grid;place-items:center;color:var(--mute);font-size:.85rem}
+.body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:5px;flex:1}
+.cod{font-size:.78rem;color:var(--mute)}
+.body h2{margin:0;font-size:1rem;line-height:1.25}
+.pr{display:flex;justify-content:space-between;gap:8px;font-size:.9rem;border-top:1px solid var(--line);padding-top:6px}
+.pr b{font-variant-numeric:tabular-nums}
+.act{display:flex;gap:8px;margin-top:auto;padding-top:8px}.act .btn{flex:1;padding:9px 8px;font-size:.88rem}
+.vacio{grid-column:1/-1;text-align:center;color:var(--mute);padding:40px 0}
+#wa{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:var(--inv);color:var(--invink);display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+#wa svg{width:30px;height:30px;fill:currentColor}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--inv);color:var(--invink);padding:10px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hero" id="hero">
+  <h1>A&G Grabados</h1>
+  <p>Grabado láser en termos, mates, vasos y más.</p>
+  <div class="hb" id="hb"></div>
+</header>
+<section id="serv">
+  <p><strong>Servicio de grabado.</strong> ¿Ya tenés un objeto y querés personalizarlo? ¿Buscás regalos empresariales o souvenirs? Grabado de una pieza desde $5.000 cada una. Consultá precio mayorista por WhatsApp.</p>
+</section>
+<div class="tools">
+  <input type="search" id="q" placeholder="Buscar por nombre o código" aria-label="Buscar">
+  <div class="chips" id="chips"></div>
+</div>
+<main id="lista"></main>
+<a id="wa" target="_blank" rel="noopener noreferrer" aria-label="Escribinos por WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.4.7 4.6 1.9 6.5L3 29l7.2-1.9a12.9 12.9 0 0 0 5.8 1.4c7 0 12.7-5.600 12.7-12.500S23 3 16 3zm0 23.300c-1.900 0-3.700-.5-5.200-1.500l-.4-.2-4.300 1.100 1.200-4.100-.3-.4a10.300 10.300 0 0 1-1.600-5.500C5.400 9.800 10.200 5.200 16 5.200s10.600 4.600 10.600 10.300S21.800 26.300 16 26.300zm5.800-7.700c-.3-.2-1.900-.9-2.200-1s-.5-.2-.7.200-.8 1-1 1.200-.4.200-.7.100a8.700 8.700 0 0 1-4.300-3.700c-.3-.6.300-.5.900-1.700.1-.2 0-.4 0-.5l-1-2.300c-.2-.6-.5-.5-.7-.5h-.6a1.200 1.200 0 0 0-.9.400 3.700 3.700 0 0 0-1.100 2.700c0 1.600 1.200 3.200 1.300 3.400s2.300 3.500 5.600 4.900c2 .9 2.800.9 3.800.8.600-.1 1.900-.8 2.200-1.500s.3-1.400.2-1.500-.3-.2-.6-.4z"/></svg></a>
+<div id="toast" role="status"></div>
+
+<script>
+/* ===== CONFIGURACIÓN ===== */
+const TEL = "5491178296042";
+const IG  = "https://www.instagram.com/ag_grabados1704/";
+const PIN = "https://pin.it/3tQWzRurg";
+/* Para leer la planilla en vivo: en Google Sheets → Archivo → Compartir → Publicar en la web → pestaña "Tabla" → CSV, y pegá el link acá. Vacío = usa los datos incluidos abajo. */
+const CSV_URL = "";
+/* Banner: link de Drive de la imagen (compartida "cualquier persona con el link"). Vacío = banner de texto. */
+const BANNER = "1P3_EGYaoPmgNv-LwjDrDV5htGJ-MsdRP";
+/* Fotos: en la columna "Imagen" de la planilla pegá el link de Drive de cada foto (varias separadas por coma = carrusel). */
+const ORDEN = ["TERMOS","COMBOS","MATES","MATE LISTO","BOMBILLAS","CAFETEROS","VASOS","BOTELLAS"];
+/* Datos incluidos (copia de la planilla): CÓDIGO|CATEGORÍA|PRODUCTO|MARCA|SIN GRABADO|CON GRABADO */
+const SNAP = `BOM-001|BOMBILLAS|BOMBILLA MATERO T.S.|MATERO|16000|
+BOT-001|BOTELLAS|Botellon 1L con manija|Beer pint|17000|19000
+BOT-002|BOTELLAS|BOTELLA DOBLE PICO 500ML|HENGDA|17750|19000
+BOT-003|BOTELLAS|BOTELLA CON SENSOR 500ML|SMART CUP|17000|18500
+BOT-004|BOTELLAS|BOTELLA TWIST 500ML|THE KITCHEN|20000|23000
+BOT-005|BOTELLAS|BOTELLA HOPPY 500ML LILA|Bigstar|17000|19000
+BOT-006|BOTELLAS|BOTELLA HOPPY 550ML BLANCA|Bigstar|17000|19000
+BOT-007|BOTELLAS|BOTELLA DEPORTIVA PICO A ROSCA 500ML|MARWAL|17500|19500
+BOT-008|BOTELLAS|BOTELLA PICO CON ROSCA 350ML|SPORT BOTTLE|19000|21500
+BOT-009|BOTELLAS|BOTELLA TWIST 720ML|THE KITCHEN|24000|26000
+BOT-010|BOTELLAS|CANTIMPLOTA PEAK YELTON ALUMINIO 750ML|YELTON|14000|16000
+BOT-011|BOTELLAS|BOTELLA DEPORTIVA 500ML|STAINLESS STEEL|14800|16800
+BOT-012|BOTELLAS|BOTELLA INFANTIL STITCH FUN 500ML DOBLE PICO|DISNEY|27500|29000
+BOT-013|BOTELLAS|BOTELLA CON MANILLA 800ML|FASHION SPORT|25000|27000
+BOT-014|BOTELLAS|BOTELLA SPORT LISA 750ML|Bigstar|15000|17000
+BTR-001|BOTELLA / TERMO|BOTELLA / TERMO + TAPA TAZA 460ML|ON THE GO!|23000|25000
+BTR-002|BOTELLA / TERMO|BOTELLA - TERMO + TAPA TAZA 1.5L|XIN LANG|27000|29000
+BTR-003|BOTELLA / TERMO|BOTELLA TERMO + TAPA TAZAS 500ML|FASHION FLASK|19500|21500
+CAF-001|CAFETEROS|VASO CAFETERO CON SENSOR 510ML|RODAX|15000|17000
+CAF-002|CAFETEROS|VASO CAFETERO 450ML|STAINLESS STEEL|20000|22000
+CAF-003|CAFETEROS|VASO CAFETERO CON AGARRADERA 510ML|COFFEE MUGS|15500|17500
+CAF-005|CAFETEROS|VASO CAFETERO DOBLE PICO|COFFE TEAM|19000|21000
+CAF-006|CAFETEROS|VASO CAFETERO CON SOGA ROJO METALIZADO 500ML|COFFEE CUP|20000|21000
+CHP-001|CHOPS|CHOP CERVECERO CON MANIJA|Beer pint|24500|26500
+COM-001|COMBOS|Combo Media Manija 1L + Mate T.S.|Bigstar|28000|30000
+COM-002|COMBOS|COMBO SISTEM 1L + MATE OVAL|Bigstar|31500|33500
+COM-003|COMBOS|COMBO SISTEM 1.2L + MATE T.S.|Bigstar|31500|33500
+COM-004|COMBOS|COMBO GOAT TERMO 1.2L + YERBERA + MATE|GOAT|46000|48000
+MLT-001|MATE LISTO|MATE LISTO PREMIUM 750ML|NEO|24800|26800
+MLT-002|MATE LISTO|MATE LISTO 500ML 2 EN 1|TERMO|21000|23000
+TER-001|TERMOS|TERMO MEDIA MANIJA NEGRO 1L|Bigstar|20000|22000
+TER-002|TERMOS|TERMO CEBADOR 1L|VACUUM FLASK|26000|27500
+TER-003|TERMOS|TERMO SISTEM 1.2L ROSA|YELTON|31000|33500
+TER-004|TERMOS|TERMO SISTEM 1.2L SALMON|Rodax|27000|30500
+TER-005|TERMOS|TERMO MEDIA MANIJA COBRE 1L|NOBEL HOME|23000|25000
+TER-006|TERMOS|TERMO SISTEM 1L|Bigstar|24000|26000
+TER-007|TERMOS|TERMO PICO CEBADOR 1.2L|Bigstar|23000|25000
+TER-008|TERMOS|TERMO DOBLE MANIJA 1.4L|NEO|30000|32000
+TER-009|TERMOS|TERMO TRAIL YELTON 1L|YELTON|32000|34000
+TER-010|TERMOS|TERMO TAPA OVAL 1.3L|GOAT|26500|28500
+VAS-001|VASOS|VASO CON MANIJA DOBLE PICO 890ML|braverage cup|28000|30000
+VAS-002|VASOS|VASO SHAKER FONDO DESMONTABLE 720ML|WMT|26000|28000`;
+/* Fotos de la carpeta de Drive: CÓDIGO -> ids de archivo (si hay varias, se arma carrusel en ese orden). Para sumar una foto, agregá su id separado por coma. */
+const FOTOS = {"BOM-001":"1ZIgsKWwguDEg6dQ8UYB7hW2i6eblood-","BOT-001":"1ZnCLcjUs8VPHTo5X9BYWMh8MsMQmjH9_","BOT-002":"1cX5R1dUDH5mG0rPWH3R4awjPJvaC8_aZ","BOT-003":"1NaJtfCKNWebQ63TS1kn1LX7TVKYq3B7i","BOT-004":"1G9RXw-jblx7j2Gpp_GZWH7CmL5kSGhNN","BOT-005":"1cnwRLJs0QLzeL5LjivnNEkJ5hpgyiMZt","BOT-006":"1V0-UuCbB4TjhWS9nNUD2dJKnYmbBCX7e","BOT-007":"1uNhfuxsUjEqRIgf61JcN88OdRhkaV7OB","BOT-008":"1uGOFAo0XUsdGq0Ar5X5uJxZy_UpCfy2u","BOT-009":"1v-_8ecZBwN1FGTPnR0EInYXlIj47oGUq","BOT-010":"1qlXdXyyNtegAHs1hXvbvar3brVxxfZOo,18i7eo9P7ZKwm2OHLThyVFD5QSLyXJIC9","BOT-011":"1UNG8EMVtw4VSNGB4UFW_0C0HYGqyKAjj","BOT-012":"1V45A4kUYuiE5H7hRXcxVwFCkg_2hhfhv,15uv3Va0IpOQ1mrcTgy8nbDIO37dYReTz","BOT-013":"1cYvmPxI2zzK-eX2yEjAlmjGb2D0gGZcH","BOT-014":"1h9S6jGskkZo1L0l0T6d7dYIt-RFkrZLs","BTR-001":"1i0q4e5BMe2Om6l2VPz5TGAbUwveo_kGr","BTR-002":"1yzwtPy3L-KE4oiwuc4aHxJayHmBVj6Ws","BTR-003":"1gBmLB3MOqY9k88UXmS83lgFjCy51d5jP","CAF-001":"1o5VvUinustSchNtMOfUpFsGK_hsPPVpH","CAF-002":"1wFqHpNU4xIp673ywNtfnnZN3Pw5W_LLX","CAF-003":"11zQ75aHWMRG5Bsl2WTTnIMhJDMyptFb1","CAF-005":"193_jVW3GRGBezeNChQO-FlbmRfVdvAIM","CAF-006":"1HWdMJRYnVt8kspyrt2ZwnFrhz3_kWhI6","CHP-001":"1VpEME9YjOXxUGRDYuRHMlJP-ek7vOJzK","COM-001":"1kxxJ2MXVYzNNfdEHKcEZpxdmVaXQV138","COM-002":"1HOyNf2d6llO5LMFEKwtvu6Ks0oFTlI9W","COM-003":"1AA3R0d7U_p-rz0CWt_vyIwLl_vNQL_fR","COM-004":"1jgbsnAUvmKiSeYwveMxwM9xMGKjy5ip4","MLT-001":"13sSRQianKceDmKK8jm8bxLxKIJgrFcPR","MLT-002":"1gxleiA8u4xjx8RtkU5TYX61IGVSUT8Oi","TER-001":"119DPC5r8WbXvO_yvFH7U2MdksiySsmOh","TER-002":"1v0F3F2dN01e40t9PuPJ37GgweqhsHRqC","TER-003":"1-5sRmk9rLJsSfXUT5DN-1HSyhHY2KezI","TER-004":"1rkE4bixvoqFUNqLoGa0tTAe4SI0W2ovL","TER-005":"1wU9f_DiUao5EHxp2i690miCGVTHlItui","TER-006":"185AmOuC_eqYcYiKGz5-Shar9S-zTJXtY","TER-007":"1gCBw6UXEMFZ7tKwGeq7tmIzUYFh2doC_","TER-008":"1Yx0j__LqA6kfIUVBFEd4JM6ItNIVvQWD","TER-009":"1A3J0zI2MXJd8MN4zgfcg_4x0wqYz-FfB","TER-010":"1DFyq4H2sUexsl1iNcLG71NaPNo5S3Lz3","VAS-001":"1myqDDpCek7aFKvo4rgY09fL_beKuH-g7","VAS-002":"1mLKziFzba_UgfRBPBvfEkEyP3fC3edDU,1zBntcQxmHj6K6USdJQvniSucNUwQahKu"};
+/* ===== FIN ===== */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+const num = s => { const n = parseInt(String(s||"").replace(/[^\d]/g,""),10); return isNaN(n)?0:n; };
+const money = n => "$" + n.toLocaleString("es-AR");
+const frase = s => { let t = String(s).toLowerCase().replace(/(\d)ml\b/g,"$1 ml").replace(/(\d)l\b/g,"$1 L"); return t.charAt(0).toUpperCase()+t.slice(1); };
+const driveImg = (v, w) => { const m = String(v).match(/\/d\/([\w-]{15,})|[?&]id=([\w-]{15,})|^([\w-]{25,})$/); const id = m && (m[1]||m[2]||m[3]); return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w${w}` : (/^https?:|^[\w./-]+\.(jpe?g|png|webp)$/i.test(v) ? v : ""); };
+
+const fotos = cod => (FOTOS[cod]||"").split(",").filter(Boolean).map(id => "https://drive.google.com/thumbnail?id="+id+"&sz=w700");
+let P = SNAP.split("\n").map(l => { const a = l.split("|"); return {cod:a[0],cat:a[1],nom:a[2],marca:a[3],sin:num(a[4]),con:num(a[5]),imgs:fotos(a[0])}; });
+let cat = "Todos", texto = "";
+
+function csv(t){ const r=[]; let f="",row=[],q=false; for(let i=0;i<t.length;i++){ const c=t[i];
+  if(q){ if(c==='"'&&t[i+1]==='"'){f+='"';i++;} else if(c==='"') q=false; else f+=c; }
+  else if(c==='"') q=true; else if(c===","){row.push(f);f="";} else if(c==="\n"){row.push(f);r.push(row);row=[];f="";} else if(c!=="\r") f+=c; }
+  row.push(f); r.push(row); return r; }
+
+async function cargarPlanilla(){
+  if(!CSV_URL) return;
+  try {
+    const rows = csv(await (await fetch(CSV_URL)).text()); const h = rows[0].map(norm);
+    const ix = n => h.findIndex(x => x.startsWith(n));
+    const c = {ok:ix("mostrar"),cod:ix("codigo"),cat:ix("categoria"),marca:ix("marca"),nom:ix("producto"),sin:ix("valor reventa"),con:ix("valor de grabado"),img:ix("imagen")};
+    const out = rows.slice(1).filter(r => norm(r[c.ok])==="ok" && r[c.cod] && r[c.cat] && r[c.cat][0]!=="#").map(r => ({
+      cod:r[c.cod].trim(), cat:r[c.cat].trim(), nom:r[c.nom]||"", marca:r[c.marca]||"", sin:num(r[c.sin]), con:num(r[c.con]),
+      imgs:(r[c.img]||"").split(/[,\n ]+/).map(u=>driveImg(u,700)).filter(Boolean)}));
+    if(out.length){ out.forEach(p=>{ if(!p.imgs.length) p.imgs = fotos(p.cod); }); P = out; }
+  } catch(e){ toast("No se pudo leer la planilla; se muestran los datos guardados"); }
+}
+
+function categorias(){
+  const u = [...new Set(P.map(p => p.cat.toUpperCase()))];
+  const rank = c => { const i = ORDEN.indexOf(c); return i<0 ? 99 : i; };
+  return ["Todos", ...u.sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b))];
+}
+const nombreCat = c => c==="Todos" ? c : frase(c);
+function chips(){ $("#chips").innerHTML = categorias().map(c=>`<button class="chip" aria-pressed="${c===cat}" data-cat="${esc(c)}">${esc(nombreCat(c))}</button>`).join(""); }
+
+function render(){
+  const q = norm(texto), rank = c => { const i=ORDEN.indexOf(c.toUpperCase()); return i<0?99:i; };
+  const items = P.filter(p => (cat==="Todos"||p.cat.toUpperCase()===cat) && (!q || norm(p.nom+" "+p.cod+" "+p.marca).includes(q)))
+    .sort((a,b)=>rank(a.cat)-rank(b.cat)||a.cod.localeCompare(b.cod));
+  $("#lista").innerHTML = items.length ? items.map(p => `
+    <article class="card" data-cod="${esc(p.cod)}">
+      <div class="cw"><div class="car">${p.imgs.length ? p.imgs.map(u=>`<img src="${esc(u)}" alt="${esc(frase(p.nom))}" loading="lazy">`).join("") : `<div class="ph">Foto próximamente</div>`}</div>${p.imgs.length>1?`<span class="bd">1/${p.imgs.length}</span>`:""}</div>
+      <div class="body">
+        <span class="cod">${esc(p.cod)} · ${esc(nombreCat(p.cat.toUpperCase()))}</span>
+        <h2>${esc(frase(p.nom))}</h2>
+        <div class="pr"><span>Sin grabado</span><b>${money(p.sin)}</b></div>
+        <div class="pr"><span>Con grabado</span><b>${p.con ? money(p.con) : "No se puede grabar"}</b></div>
+        <div class="act">
+          <a class="btn f" target="_blank" rel="noopener noreferrer" href="https://wa.me/${TEL}?text=${encodeURIComponent("Hola! Quiero consultar por "+frase(p.nom)+" (código "+p.cod+")")}">Consultar</a>
+          <button class="btn" data-share="${esc(p.cod)}">Compartir</button>
+        </div>
+      </div>
+    </article>`).join("") : `<p class="vacio">No encontramos artículos con ese filtro.</p>`;
+}
+
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); setTimeout(()=>t.classList.remove("on"),2200); }
+async function compartir(cod){
+  const p = P.find(x=>x.cod===cod); if(!p) return;
+  const url = location.origin + location.pathname + "#" + encodeURIComponent(cod), msg = frase(p.nom) + " — A&G Grabados";
+  if (navigator.share) { try { await navigator.share({title:msg,text:msg,url}); return; } catch(e){ if(e&&e.name==="AbortError") return; } }
+  try { await navigator.clipboard.writeText(url); toast("Link copiado"); }
+  catch(e){ window.open("https://wa.me/?text="+encodeURIComponent(msg+"\n"+url),"_blank","noopener"); }
+}
+function irAlArticulo(){
+  let id=""; try { id = decodeURIComponent(location.hash.slice(1)); } catch(e){}
+  document.querySelectorAll(".card.hl").forEach(c=>c.classList.remove("hl"));
+  if(!id) return;
+  const p = P.find(x=>x.cod.toLowerCase()===id.toLowerCase());
+  if(!p){ toast("Ese artículo ya no está en el catálogo"); return; }
+  if(cat!=="Todos"||texto){ cat="Todos"; texto=""; $("#q").value=""; chips(); render(); }
+  const el = document.querySelector(`[data-cod="${CSS.escape(p.cod)}"]`);
+  if(el){ el.classList.add("hl"); el.scrollIntoView({behavior:"smooth",block:"center"}); }
+}
+
+const wa = "https://wa.me/"+TEL+"?text="+encodeURIComponent("Hola! Quiero hacer una consulta");
+$("#wa").href = wa;
+$("#hb").innerHTML = `<a class="btn f" target="_blank" rel="noopener noreferrer" href="${wa}">Consultar por WhatsApp</a>
+  <a class="btn" href="#serv">Servicio de grabado</a>
+  <a class="btn" target="_blank" rel="noopener noreferrer" href="${IG}">Ver trabajos en Instagram</a>
+  <a class="btn" target="_blank" rel="noopener noreferrer" href="${PIN}">Ideas para grabados</a>`;
+const bn = BANNER && driveImg(BANNER, 1600); if(bn) $("#hero").style.backgroundImage = `url("${bn}")`;
+
+$("#chips").addEventListener("click", e=>{ const b=e.target.closest("[data-cat]"); if(!b) return; cat=b.dataset.cat; chips(); render(); });
+$("#q").addEventListener("input", e=>{ texto=e.target.value; render(); });
+$("#lista").addEventListener("click", e=>{ const b=e.target.closest("[data-share]"); if(b) compartir(b.dataset.share); });
+$("#lista").addEventListener("scroll", e=>{ const c=e.target; if(c.classList&&c.classList.contains("car")){ const b=c.parentNode.querySelector(".bd"); if(b) b.textContent=(Math.round(c.scrollLeft/c.clientWidth)+1)+"/"+c.children.length; } }, true);
+window.addEventListener("hashchange", irAlArticulo);
+chips(); render(); irAlArticulo();
+cargarPlanilla().then(()=>{ chips(); render(); irAlArticulo(); });
+</script>
+</body>
+</html>
